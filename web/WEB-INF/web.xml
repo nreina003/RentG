@@ -36,6 +36,10 @@
         <servlet-name>SvrReservar</servlet-name>
         <servlet-class>packServlets.SvrReservar</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SvrConsultarReservas</servlet-name>
+        <servlet-class>packServlets.SvrConsultarReservas</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Conexion</servlet-name>
         <url-pattern>/Conexion</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>SvrReservar</servlet-name>
         <url-pattern>/SvrReservar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SvrConsultarReservas</servlet-name>
+        <url-pattern>/SvrConsultarReservas</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -93,6 +93,9 @@ and open the template in the editor.
                                 <option value="Bilbao" >Bilbao</option>                      
                             </select>  
                         </p>
+                        
+                       <p>Email:<input type="email" name="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required="" />
+                        
                         <p> 
                                
                             Fecha y hora:<input type="datetime-local" name="fechaInicio" id="fechaInicio" /> 
