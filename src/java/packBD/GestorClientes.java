@@ -103,7 +103,7 @@ public class GestorClientes {
             if (resultado.next()) {
                 coincide = true;
             }
-            System.out.println(coincide);
+            
 
         } catch (SQLException ex) {
             System.err.println("SQLException: " + ex.getMessage());
@@ -206,7 +206,7 @@ public class GestorClientes {
         } catch (SQLException ex) {
             System.err.println("SQLException: " + ex.getMessage());
         }
-        System.out.println(foto);
+        
         return foto;
         
     }

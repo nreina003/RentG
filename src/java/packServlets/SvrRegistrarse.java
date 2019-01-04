@@ -92,7 +92,7 @@ public class SvrRegistrarse extends HttpServlet {
             throws ServletException, IOException, Exception {
 
         try {
-            System.out.println("aqui 11");
+           
             String email = request.getParameter("email");
             String contrasena = request.getParameter("contrasena");
             String nombre = request.getParameter("nombre");
@@ -104,14 +104,14 @@ public class SvrRegistrarse extends HttpServlet {
 
             if (encontrado) {
                 response.setContentType("text/html");
-                System.out.println("aqui 2");
+              
                 // PrintWriter out = null;
 
                 JOptionPane.showMessageDialog(null, "ya estas registrado", "RentG", JOptionPane.WARNING_MESSAGE);
                 response.sendRedirect("registrarse.jsp");
 
             } else {
-                System.out.println("aqui 3");
+               
 
                 registrarClientes(nombre, email, movil, dni, contrasena, foto);
                 response.sendRedirect("loguearse.jsp");

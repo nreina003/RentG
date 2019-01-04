@@ -33,10 +33,10 @@ public class SrvLoguearse extends HttpServlet {
             throws ServletException, IOException, Exception {
 
         try {
-            System.out.println("aqui 1");
+            
             String email = request.getParameter("email");
             String contrasena = request.getParameter("contrasena");
-            System.out.println(contrasena);
+           
 
             boolean encontrado = GestorClientes.getInstance().buscarCliente(email);
             boolean encontradoRS = GestorClientes.getInstance().buscarRS(email);
