@@ -47,23 +47,6 @@
                         <table>
 
                             <thead>
-
-                                <tr>
-                                    <th>Email</th>
-                                    <th>Fecha Fin</th>
-                                    <th>Fecha Inicio</th>
-                                    <th>ID</th>
-                                    <th>Lugar</th>
-                                    <th>Matricula</th>
-                                </tr>
-                            </thead>
-
-                        </table>
-                        <div>
-
-                            <% ArrayList<Reserva> reservas = GestorReservas.getInstance().buscarReservasPorEmail();%>   
-                            <% if (reservas.size() == 0) { %> <br> <span class="textoFormulario"> No tiene citas pasadas </span> <%} else {%>
-                            <table align="center" border=1>
                                 <tr class="textoFormulario">
                                     <th>Email</th>
                                     <th>Fecha Fin</th>
@@ -76,6 +59,15 @@
                                     <th>Retraso</th>
 
                                 </tr>
+                            </thead>
+
+                        </table>
+                        <div>
+
+                            <% ArrayList<Reserva> reservas = GestorReservas.getInstance().buscarReservasPorEmail();%>   
+                            <% if (reservas.size() == 0) { %> <br> <span class="textoFormulario">no hay reservas </span> <%} else {%>
+                            <table align="center" border=1>
+
                                 <%
                                     for (int i = 0; i < reservas.size(); i++) {
 
