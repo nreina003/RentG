@@ -29,7 +29,6 @@
                             <button type="submit" id="logoff">Cerrar Sesión</button>
                         </form>
                     </li>
-                    <li><button type="button" id="mostrarReservaEmail">Mostrar las Reservas </button></li>
                 </ul>
             </div>
         </nav>
@@ -39,19 +38,34 @@
 
                     <div id="elements">
                         <table>
-                            <caption>Reservas</caption>
+                            <caption>Consultar Reservas</caption>
                             <thead>
+                                <tr>
+                                    <th>
+                                        <form name="formpac" id="formpac" action="SrvConsultarReservas" method="post">
+
+                                            <p>Elija tipo de consulta:<select name="nomConsulta" id="modelo" size="1">
+                                                    <option value="fecha" >Fecha</option>
+                                                    <option value="cliente" >Cliente</option>
+                                                    <option value="coche" >Coche</option>   
+                                                </select> 
+                                            </p><input type="submit" name="consultar" id="consultar" value="Consultar"/>
+                                        </form>
+                                    </th>
+                                    <th></th>
+                                    <th></th>
+
+                                </tr>
                                 <tr>
                                     <th>Email</th>
                                     <th>Fecha Fin</th>
                                     <th>Fecha Inicio</th>
-                                    <th>Hora Fin</th>
-                                    <th>Hora Inicio</th>
                                     <th>ID</th>
                                     <th>Lugar</th>
                                     <th>Matricula</th>
                                 </tr>
                             </thead>
+                            
                             <tbody id="elementsList">
                                 <tr>
                                     <td colspan="3">No hay elementos que mostrar</td>

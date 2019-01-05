@@ -40,6 +40,14 @@
         <servlet-name>SvrConsultarReservas</servlet-name>
         <servlet-class>packServlets.SvrConsultarReservas</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Reserva</servlet-name>
+        <servlet-class>packModelo.Reserva</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GestorReservas</servlet-name>
+        <servlet-class>packBD.GestorReservas</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Conexion</servlet-name>
         <url-pattern>/Conexion</url-pattern>
@@ -79,6 +87,14 @@
     <servlet-mapping>
         <servlet-name>SvrConsultarReservas</servlet-name>
         <url-pattern>/SvrConsultarReservas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Reserva</servlet-name>
+        <url-pattern>/Reserva</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GestorReservas</servlet-name>
+        <url-pattern>/GestorReservas</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
