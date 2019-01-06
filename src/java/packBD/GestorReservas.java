@@ -5,6 +5,7 @@
  */
 package packBD;
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.time;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -26,25 +27,23 @@ import packModelo.Reserva;
  * @author Grupo 05
  */
 public class GestorReservas {
-    
+
     private static GestorReservas gr;
     private static int id = 0;
-    
+
     private GestorReservas() {
-        
+
     }
-    
+
     public static GestorReservas getInstance() {
-        
+
         if (gr == null) {
-            
+
             gr = new GestorReservas();
         }
         return gr;
     }
-    
-    
-    
+
     public ArrayList<Reserva> buscarReservasPorEmail() {
 
         ResultSet rs = null;
@@ -54,7 +53,7 @@ public class GestorReservas {
 
         try {
             String query = "SELECT * FROM rentg02.reservas order by  email";
-            rs = c.getSt().executeQuery(query);
+            rs = c.getSt().executeQuery("SELECT * FROM rentg02.reservas order by  email");
 
             String email;
             String matricula;
@@ -65,7 +64,7 @@ public class GestorReservas {
             String CocheEntregado;
             String pagoExtra;
             String retraso;
-            
+
             while (rs.next()) {
                 email = rs.getString("email");
                 matricula = rs.getString("matricula");
@@ -83,6 +82,70 @@ public class GestorReservas {
         }
 
         return reservas;
+    }
 
+    public ArrayList<Reserva> buscarReservasPendientes(String pEmail) {
+        ResultSet r;
+        Conexion c = Conexion.getInstance();
+        c.conectar();
+        ArrayList<Reserva> reservas = new ArrayList<>();
+
+        try {
+            String query = "SELECT * FROM reserva where email='" + pEmail + "'";
+            r = c.getSt().executeQuery(query);
+            Calendar cal = Calendar.getInstance();
+            System.out.println(query);
+            ZoneId z = ZoneId.of("Europe/Paris");
+            LocalDate pHoy = LocalDate.now(z);
+
+            int hh = cal.get(Calendar.HOUR_OF_DAY);
+            int min = cal.get(Calendar.MINUTE);
+
+            Date ppHoy = java.sql.Date.valueOf(pHoy);
+            Time pHoyHora = new Time(hh, min, 00);
+
+            Date pFecha;
+            Time pTiempo;
+            while (r.next()) {
+                pFecha = r.getDate("fechaCita");
+                pTiempo = r.getTime("horaCita");
+
+                if ((pFecha.equals(ppHoy) && pTiempo.after(pHoyHora)) || pFecha.after(ppHoy)) {
+                    Integer idReserva = r.getInt("idReserva");
+                    String email = r.getString("email");
+                    String matricula = r.getString("matricula");
+                    Date fechaInicio = r.getDate("fechaInicio");
+                    Date fechaFin = r.getDate("fechaFin");
+                    String lugar = r.getString("lugar");
+                    String cocheRecogido = r.getString("cocheRecogido");
+                    String cocheEntregado = r.getString("cocheEntregado");
+                    String pagoExtra = r.getString("cocheEntregado");
+                    Time retraso = r.getTime("retraso");
+
+                    reservas.add(new Reserva (idReserva,email, matricula, fechaInicio, fechaFin, lugar, cocheRecogido, cocheEntregado, pagoExtra, retraso));
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("SQLException: " + ex.getMessage());
+        }
+        return reservas;
+    }
+   public boolean eliminarResera (String pEmail, String pIdReserva){
+        Conexion c = Conexion.getInstance();
+        c.conectar();
+        boolean eliminada = false;
+        try {
+        Statement sentencia =  Conexion.getInstance().getSt(ResultSet.TYPE_SCROLL_SENSITIVE,             
+                                           ResultSet.CONCUR_UPDATABLE);        
+        
+            String query = "DELETE FROM reserva WHERE email = '" +pEmail+ "' AND idReserva= '" +pIdReserva + "'";
+            sentencia.executeUpdate(query);
+            eliminada = true;
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(GestorReservas.class.getName()).log(Level.SEVERE, null, ex);
+            eliminada = false;
+        }
+        return eliminada;
     }
 }

@@ -48,6 +48,10 @@
         <servlet-name>GestorReservas</servlet-name>
         <servlet-class>packBD.GestorReservas</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SvrEliminarReserva</servlet-name>
+        <servlet-class>packServlets.SvrEliminarReserva</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Conexion</servlet-name>
         <url-pattern>/Conexion</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>GestorReservas</servlet-name>
         <url-pattern>/GestorReservas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SvrEliminarReserva</servlet-name>
+        <url-pattern>/SvrEliminarReserva</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

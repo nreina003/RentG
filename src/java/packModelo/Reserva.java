@@ -7,6 +7,8 @@ package packModelo;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.sql.Time;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,19 +19,20 @@ import javax.servlet.http.HttpServletResponse;
  * @author ADMIN
  */
 public class Reserva {
-
+    private Integer idReserva;
     private String email;
     private String matricula;
-    private String fechaInicio;
-    private String fechaFin;
+    private Date fechaInicio;
+    private Date fechaFin;
     private String lugar;
     private String cocheRecogido;
     private String cocheEntregado;
     private String pagoExtra;
-    private String retraso;
+    private Time retraso;
 
-    public Reserva(String pEmail, String pMatricula, String pFechaInicio, String pFechaFin, String pLugar, String pCocheRecogido, String pCocheEntregado, String pPagoExtra, String pRetraso) {
-
+    public Reserva(Integer pIdReserva, String pEmail, String pMatricula, Date pFechaInicio, Date pFechaFin, String pLugar, String pCocheRecogido, String pCocheEntregado, String pPagoExtra, Time pRetraso) {
+       
+        idReserva = pIdReserva;
         email = pEmail;
         matricula = pMatricula;
         fechaInicio = pFechaInicio;
@@ -57,21 +60,30 @@ public class Reserva {
         this.matricula = matricula;
     }
 
-    public String getFechaInicio() {
+    public Date getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(String fechaInicio) {
+    public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public String getFechaFin() {
+    public Date getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(String fechaFin) {
+    public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }
+
+    public Time getRetraso() {
+        return retraso;
+    }
+
+    public void setRetraso(Time retraso) {
+        this.retraso = retraso;
+    }
+
 
     public String getLugar() {
         return lugar;
@@ -105,12 +117,14 @@ public class Reserva {
         this.pagoExtra = pagoExtra;
     }
 
-    public String getRetraso() {
-        return retraso;
+    
+
+    public Integer getIdReserva() {
+        return idReserva;
     }
 
-    public void setRetraso(String retraso) {
-        this.retraso = retraso;
+    public void setIdReserva(Integer idReserva) {
+        this.idReserva = idReserva;
     }
 
 

@@ -47,7 +47,19 @@
                         <table>
 
                             <thead>
-                                <tr class="textoFormulario">
+                                
+                            </thead>
+
+                            <span id="logTitulo">Consulta de citas de 
+                                <% String pEmail = (String) session.getAttribute("Cliente");
+                                    String Cliente = GestorClientes.getInstance().getNombre(pEmail) ;%>
+                                <%= Cliente%> 
+                            </span> <br>
+                            <div>
+
+                                <% ArrayList<Reserva> reservasPasadas = GestorReservas.getInstance().buscarReservasPorEmail();%>   
+                                <% if (reservasPasadas.size() == 0) { %> <br> <span class="textoFormulario">no hay reservas </span> <%} else {%>
+                                <tr align="center" border=1>
                                     <th>Email</th>
                                     <th>Fecha Fin</th>
                                     <th>Fecha Inicio</th>                                   
@@ -57,69 +69,77 @@
                                     <th>Coche Entregado</th>
                                     <th>Pago Extra</th>
                                     <th>Retraso</th>
-
                                 </tr>
-                            </thead>
-
-                        </table>
-                        <div>
-
-                            <% ArrayList<Reserva> reservas = GestorReservas.getInstance().buscarReservasPorEmail();%>   
-                            <% if (reservas.size() == 0) { %> <br> <span class="textoFormulario">no hay reservas </span> <%} else {%>
-                            <table align="center" border=1>
-
-                                <%
-                                    for (int i = 0; i < reservas.size(); i++) {
-
-
-                                %>   
+                                    <%
+                                        for (int i = 0; i < reservasPasadas.size(); i++) {
+                                     %>   
                                 <tr class="textoFormulario">
-                                    <th><%= reservas.get(i).getEmail()%></th>
-                                    <th><%= reservas.get(i).getFechaFin()%></th>
-                                    <th><%= reservas.get(i).getFechaInicio()%></th>
-                                    <th><%= reservas.get(i).getLugar()%></th>
-                                    <th><%= reservas.get(i).getMatricula()%></th>
-                                    <th><%= reservas.get(i).getCocheRecogido()%></th>
-                                    <th><%= reservas.get(i).getCocheEntregado()%></th>
-                                    <th><%= reservas.get(i).getPagoExtra()%></th>
-                                    <th><%= reservas.get(i).getRetraso()%></th>
+                                    <th><%= reservasPasadas.get(i).getEmail()%></th>
+                                    <th><%= reservasPasadas.get(i).getFechaFin()%></th>
+                                    <th><%= reservasPasadas.get(i).getFechaInicio()%></th>
+                                    <th><%= reservasPasadas.get(i).getLugar()%></th>
+                                    <th><%= reservasPasadas.get(i).getMatricula()%></th>
+                                    <th><%= reservasPasadas.get(i).getCocheRecogido()%></th>
+                                    <th><%= reservasPasadas.get(i).getCocheEntregado()%></th>
+                                    <th><%= reservasPasadas.get(i).getPagoExtra()%></th>
+                                    <th><%= reservasPasadas.get(i).getRetraso()%></th>
                                 </tr>
                                 <% } %><% }%> <br> 
-
-                                </div>
-                                </div>
-
-                                </section>
-                                <aside id="infoadicional">
-                                    <h1>Nuestras oficinas</h1>
-                                    <p>Vitoria</p>
-                                    <p>Donostia</p>
-                                    <p>Bilbo</p>
-                                    <div id="logo">
-                                        <img src="img/favicon.png" alt="Logo" />
-                                    </div>
-                                </aside>
-                                <div class="recuperar"></div>
-                        </div>
-                        </main>
-                        <footer id="pielogo">
-                            <div>
-                                <section class="seccionpie">
-                                    <h1>Sitio Web</h1>
-                                    <p><a href="index.jsp">Principal</a></p>
-                                    <p><a href="fotos.jsp">Fotos</a></p>
-                                    <p><a href="videos.jsp">Videos</a></p>
-                                </section>
-                                <section class="seccionpie">
-                                    <h1>Ayuda</h1>
-                                    <p><a href="contacto.jsp">Contacto</a></p>
-                                </section>
-                                <section class="seccionpie">
-                                    <address>Vitoria, País Vasco</address>
-                                    <small>&copy; Derechos Reservados 2018</small>
-                                </section>
-                                <div class="recuperar"></div>
+                                </table>
+                                <span class="textoFormulario">
+                Reservas Pendientes:
+                <% ArrayList<Reserva> reservasPendientes = GestorReservas.getInstance().buscarReservasPendientes(pEmail);%>
+            </span> 
+            <% if (reservasPendientes.size()==0){ %> <br> <span class="textoFormulario"> No tiene Reservas pendientes </span> <%} else {%>
+               <tr align="center" border=1>
+                                    <th>Email</th>
+                                    <th>Fecha Fin</th>
+                                    <th>Fecha Inicio</th>                                   
+                                    <th>Lugar</th>
+                                    <th>Matricula</th>
+                                    <th>Coche Recogido</th>
+                                    <th>Coche Entregado</th>
+                                    <th>Pago Extra</th>
+                                    <th>Retraso</th>
+                                </tr>
+                <% 
+                    for (int i = 0; i < reservasPendientes.size(); i++) 
+                    {
+                %>   
                             </div>
-                        </footer>
-                        </body>
-                        </html>
+                    </div>
+
+                </section>
+                <aside id="infoadicional">
+                    <h1>Nuestras oficinas</h1>
+                    <p>Vitoria</p>
+                    <p>Donostia</p>
+                    <p>Bilbo</p>
+                    <div id="logo">
+                        <img src="img/favicon.png" alt="Logo" />
+                    </div>
+                </aside>
+                <div class="recuperar"></div>
+            </div>
+        </main>
+        <footer id="pielogo">
+            <div>
+                <section class="seccionpie">
+                    <h1>Sitio Web</h1>
+                    <p><a href="index.jsp">Principal</a></p>
+                    <p><a href="fotos.jsp">Fotos</a></p>
+                    <p><a href="videos.jsp">Videos</a></p>
+                </section>
+                <section class="seccionpie">
+                    <h1>Ayuda</h1>
+                    <p><a href="contacto.jsp">Contacto</a></p>
+                </section>
+                <section class="seccionpie">
+                    <address>Vitoria, País Vasco</address>
+                    <small>&copy; Derechos Reservados 2018</small>
+                </section>
+                <div class="recuperar"></div>
+            </div>
+        </footer>
+    </body>
+</html>
