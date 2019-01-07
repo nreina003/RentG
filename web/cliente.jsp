@@ -6,6 +6,7 @@
 <%@page import="java.sql.*"%>
 <%@page import="packBD.*"%>
 <%@page import="packModelo.*"%>
+<%@page import="packServlets.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -56,8 +57,8 @@
 
 
                             <% 
-                               System.out.println( GestorReservas.getInstance().buscarReservasPorEmail());
-                                ArrayList<Reserva> reservas = GestorReservas.getInstance().buscarReservasPorEmail();
+                               System.out.println( SvrConsultarReservas.getInstance().buscarReservasPorEmail());
+                                ArrayList<Reserva> reservas = SvrConsultarReservas.getInstance().buscarReservasPorEmail();
                                                         System.out.println(reservas);
 
                             %>   
@@ -99,7 +100,7 @@
                             <table>
                                 
                                  <% String f = (String) session.getAttribute("email");%>
-                                <% ArrayList<Reserva> reservasPendientes = GestorReservas.getInstance().buscarReservasPendientes(f);%>
+                                <% ArrayList<Reserva> reservasPendientes = SvrConsultarReservas.getInstance().buscarReservasPendientes(f);%>
                         </span> 
                         <% if (reservasPendientes.size() == 0) { %> <br> <span class="textoFormulario"> No tiene Reservas pendientes </span> <%} else {%>
                         <tr align="center" border=1>

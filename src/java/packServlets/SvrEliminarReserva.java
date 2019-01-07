@@ -61,7 +61,7 @@ public class SvrEliminarReserva extends HttpServlet {
             response.sendRedirect("eliminarReserva.jsp");
         }
         
-        else if(GestorReservas.getInstance().eliminarReserva(Email, pIdReserva)){
+        else if(SvrConsultarReservas.getInstance().eliminarReserva(Email, pIdReserva)){
             JOptionPane.showMessageDialog(null, "Reserva correctamente anulada", "RentG02", JOptionPane.WARNING_MESSAGE);
             response.sendRedirect("eliminarReserva.jsp");
         }

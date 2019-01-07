@@ -6,6 +6,7 @@
 <%@page import="java.sql.*"%>
 <%@page import="packBD.*"%>
 <%@page import="packModelo.*"%>
+<%@page import="packServlets.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -51,19 +52,21 @@
                             </thead>
 
                             <span id="logTitulo">Consulta de reservas 
-                                
+
                             </span> <br>
 
 
-                            <% 
-                               System.out.println( GestorReservas.getInstance().buscarReservasPorCoche());
-                                ArrayList<Reserva> reservas = GestorReservas.getInstance().buscarReservasPorCoche();
-                                                        System.out.println(reservas);
+                            <%
+                                String matri = request.getParameter("matri");
+                                System.out.println(matri);
+                                System.out.println(SvrConsultarReservas.getInstance().buscarReservasPorCoche(matri));
+                                ArrayList<Reserva> reservas = SvrConsultarReservas.getInstance().buscarReservasPorCoche(matri);
+                                System.out.println(matri);
 
                             %>   
-                         
-                            <% if (reservas.size() == 0) {  
-                               System.out.println(reservas);
+
+                            <% if (reservas.size() == 0) {
+                                    System.out.println(reservas);
                             %> <br> 
                             <span class="textoFormulario">no hay reservas </span> <%} else {%>
                             <tr align="center" border=1>
@@ -79,7 +82,7 @@
                             </tr>
                             <%
                                 for (int i = 0; i < reservas.size(); i++) {
-                                       System.out.println(reservas);
+                                    System.out.println(reservas);
                             %>   
                             <tr class="textoFormulario">
                                 <th><%= reservas.get(i).getEmail()%></th>
@@ -97,9 +100,9 @@
                         <span class="textoFormulario">
                             Reservas Pendientes:
                             <table>
-                                
-                                 <% String f = (String) session.getAttribute("email");%>
-                                <% ArrayList<Reserva> reservasPendientes = GestorReservas.getInstance().buscarReservasPendientes(f);%>
+
+                                <% String f = (String) session.getAttribute("email");%>
+                                <% ArrayList<Reserva> reservasPendientes = SvrConsultarReservas.getInstance().buscarReservasPendientes(f);%>
                         </span> 
                         <% if (reservasPendientes.size() == 0) { %> <br> <span class="textoFormulario"> No tiene Reservas pendientes </span> <%} else {%>
                         <tr align="center" border=1>
