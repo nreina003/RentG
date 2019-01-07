@@ -56,8 +56,8 @@
 
 
                             <% 
-                               System.out.println( GestorReservas.getInstance().buscarReservasPorEmail());
-                                ArrayList<Reserva> reservas = GestorReservas.getInstance().buscarReservasPorEmail();
+                               System.out.println( GestorReservas.getInstance().buscarReservasPorCoche());
+                                ArrayList<Reserva> reservas = GestorReservas.getInstance().buscarReservasPorCoche();
                                                         System.out.println(reservas);
 
                             %>   

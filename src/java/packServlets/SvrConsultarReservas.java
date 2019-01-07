@@ -6,17 +6,11 @@
 package packServlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Time;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Calendar;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -67,7 +61,7 @@ public class SvrConsultarReservas extends HttpServlet {
         try {
             String query = "SELECT * FROM rentg02.reservas order by  email";
             rs = c.getSt().executeQuery(query);
-
+            int idReserva;
             String email;
             String matricula;
             String fechaInicio;
@@ -77,8 +71,9 @@ public class SvrConsultarReservas extends HttpServlet {
             String CocheEntregado;
             String pagoExtra;
             String retraso;
-            
+
             while (rs.next()) {
+                idReserva = rs.getInt("idReserva");
                 email = rs.getString("email");
                 matricula = rs.getString("matricula");
                 fechaInicio = rs.getString("fechaInicio");
@@ -102,7 +97,8 @@ public class SvrConsultarReservas extends HttpServlet {
             throws ServletException, IOException {
 
         String nomConsulta = request.getParameter("nomConsulta");
-
+        String matri = request.getParameter("matri");
+        
         if (Objects.equals(nomConsulta, "fecha")) {
             response.sendRedirect("fecha.jsp");
         } else if (Objects.equals(nomConsulta, "coche")) {

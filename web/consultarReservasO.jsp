@@ -47,8 +47,10 @@
                                             <p>Elija tipo de consulta:<select name="nomConsulta" id="modelo" size="1">
                                                     <option value="fecha" >Fecha</option>
                                                     <option value="cliente" >Cliente</option>
-                                                    <option value="coche" >Coche</option>   
+                                                    <option value="coche" >Coche</option>
                                                 </select> 
+                                                
+                                                    <input type="text" name="matri" id="matri"/>
                                             </p><input type="submit" name="consultar" id="consultar" value="Consultar"/>
                                         </form>
                                     </th>
