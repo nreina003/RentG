@@ -28,15 +28,15 @@ function iniciar() {
 //        if (request.result.contraseña === document.querySelector("#contraseña").value)
 //        {
 //
-//            sessionStorage.setItem("nomLogeado", request.result.nombre);
-//            sessionStorage.setItem("emaLogeado", request.result.email);
+//            sessionStorage.setItem("nomLogueado", request.result.nombre);
+//            sessionStorage.setItem("emaLogueado", request.result.email);
 //            if (request.result.nombre === "Responsable")
 //            {
-//                alert("Hola " + request.result.nombre + ", ahora estas logeado.");
+//                alert("Hola " + request.result.nombre + ", ahora estas logueado.");
 //                location.href = "responsableO.html";
 //            }else
 //            {
-//                alert("Hola " + request.result.nombre + ", ahora estas logeado.");
+//                alert("Hola " + request.result.nombre + ", ahora estas logueado.");
 //                location.href = "inicioCliente.html";
 //            }
 //        } else

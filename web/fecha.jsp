@@ -54,11 +54,14 @@
 
 
                             <%
-                                String matri = request.getParameter("matri");
-                                System.out.println(matri);
-                                System.out.println(SvrConsultarReservas.getInstance().buscarReservasPorCoche(matri));
-                                ArrayList<Reserva> reservas = SvrConsultarReservas.getInstance().buscarReservasPorCoche(matri);
-                                System.out.println(matri);
+
+                                String fecha = request.getParameter("fecha");
+                                System.out.println("fecha");
+                                System.out.println(fecha);
+
+                                System.out.println(SvrConsultarReservas.getInstance().buscarReservasPorFecha(fecha));
+                                ArrayList<Reserva> reservas = SvrConsultarReservas.getInstance().buscarReservasPorFecha(fecha);
+
 
                             %>   
 
@@ -77,26 +80,30 @@
                                 <th>Pago Extra</th>
                                 <th>Retraso</th>
                             </tr>
-                            <%
-                                for (int i = 0; i < reservas.size(); i++) {
-                                    System.out.println(reservas);
-                            %>   
-                            <tr class="textoFormulario">
-                                <th><%= reservas.get(i).getEmail()%></th>
-                                <th><%= reservas.get(i).getFechaFin()%></th>
-                                <th><%= reservas.get(i).getFechaInicio()%></th>
-                                <th><%= reservas.get(i).getLugar()%></th>
-                                <th><%= reservas.get(i).getMatricula()%></th>
-                                <th><%= reservas.get(i).getCocheRecogido()%></th>
-                                <th><%= reservas.get(i).getCocheEntregado()%></th>
-                                <th><%= reservas.get(i).getPagoExtra()%></th>
-                                <th><%= reservas.get(i).getRetraso()%></th>
-                            </tr>
-                            <% } %><% }%> <br> 
+                            <form action="SvrEliminarReserva" name="eliminar1" method="post">
+                                <%
+                                    for (int i = 0; i < reservas.size(); i++) {
+                                        System.out.println(reservas);
+                                %>   
+                                <tr class="textoFormulario">
+                                    <th><%= reservas.get(i).getIdReservas()%></th>
+                                    <th><%= reservas.get(i).getEmail()%></th>
+                                    <th><%= reservas.get(i).getFechaFin()%></th>
+                                    <th><%= reservas.get(i).getFechaInicio()%></th>
+                                    <th><%= reservas.get(i).getLugar()%></th>
+                                    <th><%= reservas.get(i).getMatricula()%></th>
+                                    <th><%= reservas.get(i).getCocheRecogido()%></th>
+                                    <th><%= reservas.get(i).getCocheEntregado()%></th>
+                                    <th><%= reservas.get(i).getPagoExtra()%></th>
+                                    <th><%= reservas.get(i).getRetraso()%></th>
+                                    <th><input type="radio" value="<%=reservas.get(i).getIdReservas()%>" name = "idr" id="idr"  > <%= reservas.get(i).getIdReservas()%></th>
+
+                                </tr>
+                                <% } %><% }%> <br> 
+                                <input type="submit" name="eliminar" id="eliminar" value="Eliminar"/>
+                            </form>
                         </table>
                         <span class="textoFormulario">
-
-
                     </div>
             </div>
 

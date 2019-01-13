@@ -22,8 +22,6 @@
         <nav id="menuprincipal">
             <div>
                 <ul>
-                    <li><a href="reservaLogeado.jsp">Reservar</a></li>
-                    <li><a href="contactoLog.jsp">Contacto</a></li>
                     <li>
                         <form action="SvrLogoff" method="post">   
                             <button type="submit" id="logoff">Cerrar Sesión</button>
@@ -49,8 +47,9 @@
                                                     <option value="cliente" >Cliente</option>
                                                     <option value="coche" >Coche</option>
                                                 </select> 
-                                                
-                                                    <input type="text" name="matri" id="matri"/>
+                                                <p>Si selecciona la busqueda por fecha complete el siguiente campo: <input type="text" name="fecha" id="fecha"/>
+                                            </p>
+                                            <p>  Si selecciona la busqueda por matricula de coche complete el siguiente campo:<input type="text" name="matri" id="matri"/>
                                             </p><input type="submit" name="consultar" id="consultar" value="Consultar"/>
                                         </form>
                                     </th>
@@ -58,21 +57,7 @@
                                     <th></th>
 
                                 </tr>
-                                <tr>
-                                    <th>Email</th>
-                                    <th>Fecha Fin</th>
-                                    <th>Fecha Inicio</th>
-                                    <th>ID</th>
-                                    <th>Lugar</th>
-                                    <th>Matricula</th>
-                                </tr>
-                            </thead>
-                            
-                            <tbody id="elementsList">
-                                <tr>
-                                    <td colspan="3">No hay elementos que mostrar</td>
-                                </tr>
-                            </tbody>
+                                
                         </table>
                     </div>
 

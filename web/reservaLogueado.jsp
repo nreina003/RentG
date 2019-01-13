@@ -1,9 +1,8 @@
 <%-- 
-    Document   : reservaLogeado
+    Document   : reservaLogueado
     Created on : 18-dic-2018, 12:28:16
     Author     : ADMIN
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!DOCTYPE html>
@@ -20,7 +19,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="css/index.css">
         <link rel="icon" type="image/png" href="img/favicon.png" />
         <script src="js/modelchoice.js"></script>
-        <script src="js/reservaLogeado.js"></script>
+        <script src="js/reservaLogueado.js"></script>
     </head>
     <body>
         <header id="cabeceralogo">
@@ -93,13 +92,11 @@ and open the template in the editor.
                                 <option value="Bilbao" >Bilbao</option>                      
                             </select>  
                         </p>
-                        
-                       <p>Email:<input type="email" name="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required="" />
-                        
-                        <p> 
-                               
-                            Fecha y hora:<input type="datetime-local" name="fechaInicio" id="fechaInicio" /> 
 
+                        <p>Email:<input type="email" name="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required="" />
+
+                        <p> 
+                            Fecha y hora:<input type="datetime-local" name="fechaInicio" id="fechaInicio" /> 
                         </p>
 
                         <p> Oficina de entrega:</p>

@@ -31,7 +31,7 @@ and open the template in the editor.
         <nav id="menuprincipal">
             <div>
                 <ul>
-                    <li><a href="reservaLogeado.jsp">Reservar</a></li>
+                    <li><a href="reservaLogueado.jsp">Reservar</a></li>
                     <li><a href="consultarReservas.jsp">Consultar Reservas</a></li>
                     <li><a href="contactoLog.jsp">Contacto</a></li>
                     <li>

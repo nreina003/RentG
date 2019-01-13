@@ -19,7 +19,7 @@ and open the template in the editor.
         <link rel="icon" type="image/png" href="img/favicon.png" />
         <link rel="stylesheet" href="css/index.css">
         <script src="js/registrarse.js"></script>
-        <script src="js/reservaLogeado.js"></script>
+        <script src="js/reservaLogueado.js"></script>
     </head>
     <body>
         <header id="cabeceralogo">
@@ -32,7 +32,7 @@ and open the template in the editor.
                 <ul>
                     
                     <li><a href="consultarReservas.jsp">Consulta Reservas</a></li>
-                    <li><a href="reservaLogeado.jsp">Reservar</a></li>
+                    <li><a href="reservaLogueado.jsp">Reservar</a></li>
                     <li><a href="contactoLog.jsp">Contacto</a></li>
                 <li>
                         <form action="SvrLogoff" method="post">   

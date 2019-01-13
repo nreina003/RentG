@@ -1,3 +1,4 @@
+
 package packServlets;
 
 import java.io.IOException;
@@ -6,6 +7,12 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Objects;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 import packBD.Conexion;
+import packBD.*;
 
 @WebServlet(name = "SvrReservar", urlPatterns = {"/SvrReservar"})
 public class SvrReservar extends HttpServlet {
@@ -32,105 +40,24 @@ public class SvrReservar extends HttpServlet {
         Conexion c = Conexion.getInstance();
         c.conectar();
     }
-
-    /*
-    //meter en responsabke tambien
-    public boolean comprobarReserva(String pMatricula, String pFechaInicio, String pFechaFin) {
-        ResultSet coche;
-        ResultSet fecha;
-        boolean coincide = false;
-        Conexion c = Conexion.getInstance();
-        c.conectar();
-
+    
+    
+    
+    public boolean diaHoy(String pFechaInicio, String pFechaFin) {  
+        Date hoy = new Date();
+        Date fechaInit = null;
+        Date fechaEnd = null;
+        
         try {
-
-            coche = c.getSt().executeQuery("SELECT matricula,fechaInicio, fechafin FROM reservas WHERE matricula = '" + pMatricula + "' ");
-            System.out.println(coche);
-            System.out.println(1);
-            if (coche.next()) {
-
-                //fecha = c.getSt().executeQuery("SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND '"+pFechaInicio +"' <= 'fechaInicio' " );
-                //fecha = c.getSt().executeQuery("SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND '"+pFechaInicio +"' <= 'fechaInicio' AND '"+pFechaFin + "' >= 'fechaFin'" );
-               // fecha = c.getSt().executeQuery(" SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND '" + pFechaInicio + "' <= 'fechaInicio' AND '" + pFechaInicio + "' >= 'fechaFin' AND '" + pFechaFin + "' >= 'fechaFin' AND '" + pFechaFin + "' <= 'fechaInicio'");
-                // fecha = c.getSt().executeQuery(" SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND  fechaInicio >= '"+pFechaInicio +"' AND fechaFin <= '"+pFechaInicio +"' AND fechaFin <= '"+pFechaFin + "' AND fechaInicio >= '" +pFechaFin +"'");
-                //fecha = c.getSt().executeQuery(" SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND  fechaInicio >= '" + pFechaInicio + "' AND fechaFin <= '" + pFechaInicio + "' AND fechaFin <= '" + pFechaFin + "' AND fechaInicio >= '" + pFechaFin + "'");
-              fecha = c.getSt().executeQuery(" SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '1237QWE' AND  (fechaInicio >= '"+pFechaInicio+ "' and fechaFin >= '"+pFechaFin+ "' or fechaInicio <= '"+pFechaInicio+ "' and fechaFin >= '"+pFechaFin+ "' or fechaInicio <= '"+pFechaInicio+ "' and fechaFin <= '" + pFechaFin+"' or fechaInicio <= '"+ pFechaInicio+"' and fechaFin >= '"+pFechaFin+"'");
-    System.out.println(2);
-                if (fecha.next()) {
-                    System.out.println("el vehiculo con esa matricula esta ocupado en esa fecha");
-                    coincide = false;
-
-                } else {
-                    System.out.println("el vehiculo con esa matricula esta libre en esa fecha");
-                    coincide = true;
-                }
-            } else {
-                System.out.println("no hay coche reservado con esa matricula, por tanto esta libre");
-                coincide = true;
-            }
-
-        } catch (SQLException ex) {
-            System.err.println("SQLException: " + ex.getMessage());
+            fechaInit = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(pFechaInicio);
+            fechaEnd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(pFechaFin);
+        } catch (ParseException ex) {
+            Logger.getLogger(GestorReservas.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return coincide;
+        
+        return fechaInit.getTime()>0 && fechaInit.after(hoy) && fechaEnd.getTime() > 0 && fechaEnd.after(fechaInit);
     }
-     */
- /*
-       public boolean comprobarReserva(String pMatricula, String pFechaInicio, String pFechaFin) {
-        ResultSet coche;
-//        ResultSet fecha1;
-//        ResultSet fecha2;
-//        ResultSet fecha3;
-//        ResultSet fecha4;
-        boolean coincide = false;
-        Conexion c = Conexion.getInstance();
-        c.conectar();
-
-        try {
-
-            coche = c.getSt().executeQuery("SELECT matricula,fechaInicio, fechafin FROM reservas WHERE matricula = '" + pMatricula + "' ");
-            System.out.println(coche);
-            System.out.println("svrReserva 1");
-            if (coche.next()) {
-                System.out.println("svrReserva 2");
-                //fecha = c.getSt().executeQuery("SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND '"+pFechaInicio +"' <= 'fechaInicio' " );
-//                fecha1 = c.getSt().executeQuery(" SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND  fechaInicio >= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaFin + "' AND fechaInicio <= '" + pFechaFin + "'");
-//                fecha2 = c.getSt().executeQuery(" SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND  fechaInicio <= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaInicio + "' AND fechaFin <= '" + pFechaFin + "' AND fechaInicio <= '" + pFechaFin + "'");
-//                fecha3 = c.getSt().executeQuery(" SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND  fechaInicio >= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaInicio + "' AND fechaFin <= '" + pFechaFin + "' AND fechaInicio <= '" + pFechaFin + "'");
-//                fecha4 = c.getSt().executeQuery(" SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND  fechaInicio <= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaFin + "' AND fechaInicio <= '" + pFechaFin + "'");
-               System.out.println("svrReserva 3");
-                
-                if (c.getSt().executeQuery(" SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND  (fechaInicio >= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaFin + "' AND fechaInicio <= '" + pFechaFin + "')").next()) {
-
-                    System.out.println("el vehiculo con esa matricula esta ocupado en esa fecha 1");
-                    coincide = false;
-
-                } else if (c.getSt().executeQuery(" SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND ( fechaInicio <= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaInicio + "' OR fechaFin <= '" + pFechaFin + "' AND fechaInicio <= '" + pFechaFin + "')").next()) {
-
-                    System.out.println("el vehiculo con esa matricula esta ocupado en esa fecha 2");
-                    coincide = false;
-
-                } else if (c.getSt().executeQuery(" SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND  (fechaInicio >= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaInicio + "' AND fechaFin <= '" + pFechaFin + "' AND fechaInicio <= '" + pFechaFin + "')").next()) {
-                    System.out.println("el vehiculo con esa matricula esta ocupado en esa fecha 3");
-                    coincide = false;
-
-                } else if (c.getSt().executeQuery(" SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND  (fechaInicio <= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaInicio + "' OR fechaFin >= '" + pFechaFin + "' AND fechaInicio <= '" + pFechaFin + "')").next()) {
-                    System.out.println("el vehiculo con esa matricula esta ocupado en esa fecha 4");
-                    coincide = false;
-                } else {
-                    System.out.println("el vehiculo con esa matricula esta disponible");
-                    coincide = true;
-                }
-            }
-            System.out.println("svrReserva 4");
-        } catch (SQLException ex) {
-            System.err.println("SQLException: " + ex.getMessage());
-        }
-
-        System.out.println("svrReserva 5");
-        return coincide;
-    }
-     */
+       
     public boolean comprobarReserva(String pMatricula, String pFechaInicio, String pFechaFin) {
         ResultSet coche;
         ResultSet fecha1;
@@ -143,10 +70,12 @@ public class SvrReservar extends HttpServlet {
 
         try {
 
-            coche = c.getSt().executeQuery("SELECT matricula,fechaInicio, fechafin FROM reservas WHERE matricula = '" + pMatricula + "' ");
+            coche = c.getSt().executeQuery("SELECT matricula FROM coches WHERE matricula = '" + pMatricula + "' ");
             System.out.println(coche);
+            
             System.out.println("svrReserva 1");
-            if (coche.next()) {
+            if (coche.next()) { 
+                
                 System.out.println("svrReserva 2");
                 //fecha = c.getSt().executeQuery("SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND '"+pFechaInicio +"' <= 'fechaInicio' " );
                 fecha1 = c.getSt().executeQuery(" SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND  fechaInicio >= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaFin + "' AND fechaInicio <= '" + pFechaFin + "'");
@@ -155,35 +84,37 @@ public class SvrReservar extends HttpServlet {
                 fecha4 = c.getSt().executeQuery(" SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND  fechaInicio <= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaFin + "' AND fechaInicio <= '" + pFechaFin + "'");
                 System.out.println("svrReserva 3");
 
-                if (c.getSt().executeQuery(" SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND  (fechaInicio >= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaFin + "' AND fechaInicio <= '" + pFechaFin + "')").next()) {
+                if ((c.getSt().executeQuery(" SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND  (fechaInicio >= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaFin + "' AND fechaInicio <= '" + pFechaFin + "')")).next()) {
 
                     System.out.println("el vehiculo con esa matricula esta ocupado en esa fecha 1");
                     coincide = false;
 
-                } else if (c.getSt().executeQuery(" SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND ( fechaInicio <= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaInicio + "' AND fechaFin <= '" + pFechaFin + "' AND fechaInicio <= '" + pFechaFin + "')").next()) {
+                } else if ((c.getSt().executeQuery(" SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND ( fechaInicio <= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaInicio + "' AND fechaFin <= '" + pFechaFin + "' AND fechaInicio <= '" + pFechaFin + "')")).next()) {
 
                     System.out.println("el vehiculo con esa matricula esta ocupado en esa fecha 2");
                     coincide = false;
 
-                } else if (c.getSt().executeQuery(" SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND  (fechaInicio >= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaInicio + "' AND fechaFin <= '" + pFechaFin + "' AND fechaInicio <= '" + pFechaFin + "')").next()) {
+                } else if ((c.getSt().executeQuery(" SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND  (fechaInicio >= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaInicio + "' AND fechaFin <= '" + pFechaFin + "' AND fechaInicio <= '" + pFechaFin + "')")).next()) {
                     System.out.println("el vehiculo con esa matricula esta ocupado en esa fecha 3");
                     coincide = false;
 
-                } else if (c.getSt().executeQuery(" SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND  (fechaInicio <= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaFin + "' AND fechaInicio <= '" + pFechaFin + "')").next()) {
+                } else if ((c.getSt().executeQuery(" SELECT fechaInicio, fechaFin  FROM reservas WHERE matricula = '" + pMatricula + "' AND  (fechaInicio <= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaInicio + "' AND fechaFin >= '" + pFechaFin + "' AND fechaInicio <= '" + pFechaFin + "')")).next()) {
                     System.out.println("el vehiculo con esa matricula esta ocupado en esa fecha 4");
                     coincide = false;
                 } else {
                     System.out.println("el vehiculo con esa matricula esta disponible");
                     coincide = true;
                 }
-            }
-            System.out.println("svrReserva 4");
+            } System.out.println("svrReserva 4");
+            
         } catch (SQLException ex) {
+            
             System.err.println("SQLException: " + ex.getMessage());
         }
-
+        
         System.out.println("svrReserva 5");
         return coincide;
+    
     }
 
     public boolean verReserva(String pEmail, String pMovil, String pDni) {
@@ -262,11 +193,43 @@ public class SvrReservar extends HttpServlet {
             String fechaInicio = request.getParameter("fechaInicio");
             String fechaFin = request.getParameter("fechaFin");
             String lugar = request.getParameter("lugar");
-
+           
             System.out.println(fechaInicio);
-            System.out.println("svrReserva 6");
+            
+            /*             
+            
+            if (diaHoy(fechaInicio, fechaFin)) {
+                encontrado = comprobarReserva(matricula, fechaInicio, fechaFin);
+                if (encontrado) {
+                    response.setContentType("text/html");
+                    System.out.println("aqui 2");
+                    // PrintWriter out = null;
+                    System.out.println("svrReserva 7");
+                    JOptionPane.showMessageDialog(null, "reserva guardada", "RentG", JOptionPane.WARNING_MESSAGE);
+                    guardarReserva(email, matricula, fechaInicio, fechaFin, lugar);
+                    response.sendRedirect("inicioCliente.jsp");
+
+                } else {
+                    System.out.println("aqui 3");
+                    response.setContentType("text/html");
+
+                    //registrarClientes(nombre, email, movil, dni, contrasena, foto);
+                    response.sendRedirect("reservaLogueado.jsp");
+
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Fecha incorrecta", "RentG", JOptionPane.WARNING_MESSAGE);
+                response.sendRedirect("reservaLogueado.jsp");
+            }
+            
+            
+            
+            
+         
+*/
             boolean encontrado = comprobarReserva(matricula, fechaInicio, fechaFin);
 
+           
             if (encontrado) {
                 response.setContentType("text/html");
                 System.out.println("aqui 2");
@@ -278,6 +241,7 @@ public class SvrReservar extends HttpServlet {
 
             } else {
                 System.out.println("aqui 3");
+                response.setContentType("text/html");
 
                 //registrarClientes(nombre, email, movil, dni, contrasena, foto);
                 response.sendRedirect("reservaLogueado.jsp");
@@ -289,6 +253,14 @@ public class SvrReservar extends HttpServlet {
         }
     }
 
+    /**
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         String nombre = (String) req.getParameter("NombreUsuario");

@@ -1,16 +1,7 @@
-<%-- 
-    Document   : consultarReservas
-    Created on : 18-dic-2018, 12:25:57
-    Author     : ADMIN
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
 
     <head>
@@ -31,14 +22,13 @@ and open the template in the editor.
         <nav id="menuprincipal">
             <div>
                 <ul>
-                    <li><a href="reservaLogeado.jso">Reservar</a></li>
+                    <li><a href="reservaLogueado.jsp">Reservar</a></li>
                     <li><a href="contactoLog.jsp">Contacto</a></li>
                     <li>
                         <form action="SvrLogoff" method="post">   
                             <button type="submit" id="logoff">Cerrar Sesión</button>
                         </form>
                     </li>
-                    <li><button type="button" id="mostrarReservaEmail">Mostrar las Reservas </button></li>
                 </ul>
             </div>
         </nav>
@@ -48,24 +38,32 @@ and open the template in the editor.
 
                     <div id="elements">
                         <table>
-                            <caption>Reservas</caption>
+                            <caption>Consultar Reservas</caption>
                             <thead>
                                 <tr>
-                                    <th>Email</th>
-                                    <th>Fecha Fin</th>
-                                    <th>Fecha Inicio</th>
-                                    <th>Hora Fin</th>
-                                    <th>Hora Inicio</th>
-                                    <th>ID</th>
-                                    <th>Lugar</th>
-                                    <th>Matricula</th>
+                                    <th>
+                                        <form name="formpac" id="formpac" action="SrvConsultarReservas" method="post">
+
+                                            <p>Elija tipo de consulta:<select name="nomConsultaCliente" id="nomConsultaCliente" size="1">
+
+                                                    <option value="fechaCliente" >Fecha</option>
+                                                    <option value="cocheCliente" >Coche</option>
+                                                    <option value="clienteCliente" >Cliente</option>
+                                                </select> 
+                                            <p>Si selecciona la busqueda por fecha complete el siguiente campo: <input type="text" name="fecha" id="fecha"/>
+                                            </p>
+                                            <p>  Si selecciona la busqueda por matricula de coche complete el siguiente campo:<input type="text" name="matri" id="matri"/>
+                                            </p><input type="submit" name="consultar" id="consultar" value="Consultar"/>
+                                        </form>
+                                    </th>
+                                    <th></th>
+                                    <th></th>
+
                                 </tr>
+
                             </thead>
-                            <tbody id="elementsList">
-                                <tr>
-                                    <td colspan="3">No hay elementos que mostrar</td>
-                                </tr>
-                            </tbody>
+
+
                         </table>
                     </div>
 

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 import packBD.Conexion;
-import packBD.GestorReservas;
+import packServlets.SvrConsultarReservas;
 
 /**
  *
@@ -34,41 +34,32 @@ public class SvrEliminarReserva extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       HttpSession s = request.getSession(true);
-        Conexion c = Conexion.getInstance();
-        c.conectar();
         
         
-        Enumeration e = request.getParameterNames();
         
-        while( e.hasMoreElements() ) 
-        {
-            Object  o = e.nextElement();
-        
-            String param = (String)o;
-            String value = request.getParameter( param );
-            System.out.println( param + " " + value );
-        }
-        
-        String pIdReserva = request.getParameter("RIdReserva");
-        
-        
-        System.out.println("codigooooooo "+pIdReserva );
-        String Email = (String) s.getAttribute("Cliente");
-        
-        if(pIdReserva==null){
-            JOptionPane.showMessageDialog(null, "No hay ninguna reserva seleccionada", "RentG02", JOptionPane.WARNING_MESSAGE);
-            response.sendRedirect("eliminarReserva.jsp");
-        }
-        
-        else if(SvrConsultarReservas.getInstance().eliminarReserva(Email, pIdReserva)){
-            JOptionPane.showMessageDialog(null, "Reserva correctamente anulada", "RentG02", JOptionPane.WARNING_MESSAGE);
-            response.sendRedirect("eliminarReserva.jsp");
-        }
-        else {
+         Integer pIdr = Integer.parseInt(request.getParameter("idr"));
+        if(pIdr==null){
+        JOptionPane.showMessageDialog(null, "No hay ninguna reserva seleccionada", "RentG02", JOptionPane.WARNING_MESSAGE);
+        response.sendRedirect("loguearse.jsp");
+        }else if(SvrConsultarReservas.getInstance().eliminarReserva(pIdr)){
+        JOptionPane.showMessageDialog(null, "Reserva correctamente anulada", "RentG02", JOptionPane.WARNING_MESSAGE);
+        response.sendRedirect("loguearse.jsp");
+        }else{
             JOptionPane.showMessageDialog(null, "Reserva no anulada", "RentG02", JOptionPane.WARNING_MESSAGE);
-            response.sendRedirect("eliminarReserva.jsp");
+            response.sendRedirect("loguearse.jsp");
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

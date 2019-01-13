@@ -37,7 +37,7 @@ function mostrarReservaEmail() {
         var outerHTML = '';
 
         for (var key in elements) {
-            if (elements[key].email === sessionStorage.getItem("emaLogeado")) {
+            if (elements[key].email === sessionStorage.getItem("emaLogueado")) {
                 outerHTML += '\n\
                         <tr>\n\
                             <td>' + elements[key].email + '</td>\n\

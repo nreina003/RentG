@@ -11,6 +11,7 @@
 <!DOCTYPE html>
 
 <html>
+
     <head>
 
         <title>Consultar Reservas</title>
@@ -54,19 +55,16 @@
 
 
                             <%
-                                String matri = request.getParameter("matri");
-                                System.out.println(matri);
-                                System.out.println(SvrConsultarReservas.getInstance().buscarReservasPorCoche(matri));
-                                ArrayList<Reserva> reservas = SvrConsultarReservas.getInstance().buscarReservasPorCoche(matri);
-                                System.out.println(matri);
-
+                                String pEmail = (String) session.getAttribute("email");
+                                ArrayList<Reserva> reservas = SvrConsultarReservas.getInstance().buscarReservasPorEmailCliente(pEmail);
                             %>   
 
                             <% if (reservas.size() == 0) {
                                     System.out.println(reservas);
                             %> <br> 
-                            <span class="textoFormulario">no hay reservas o no ha introducido una matricula en el paso anterior </span> <%} else {%>
+                            <span class="textoFormulario">no hay reservas </span> <%} else {%>
                             <tr align="center" border=1>
+                                <th>ID</th>
                                 <th>Email</th>
                                 <th>Fecha Fin</th>
                                 <th>Fecha Inicio</th>                                   
@@ -76,42 +74,52 @@
                                 <th>Coche Entregado</th>
                                 <th>Pago Extra</th>
                                 <th>Retraso</th>
+                                <th>Borrar</th>
                             </tr>
-                            <%
-                                for (int i = 0; i < reservas.size(); i++) {
-                                    System.out.println(reservas);
-                            %>   
-                            <tr class="textoFormulario">
-                                <th><%= reservas.get(i).getEmail()%></th>
-                                <th><%= reservas.get(i).getFechaFin()%></th>
-                                <th><%= reservas.get(i).getFechaInicio()%></th>
-                                <th><%= reservas.get(i).getLugar()%></th>
-                                <th><%= reservas.get(i).getMatricula()%></th>
-                                <th><%= reservas.get(i).getCocheRecogido()%></th>
-                                <th><%= reservas.get(i).getCocheEntregado()%></th>
-                                <th><%= reservas.get(i).getPagoExtra()%></th>
-                                <th><%= reservas.get(i).getRetraso()%></th>
-                            </tr>
-                            <% } %><% }%> <br> 
+                            <form action="SvrEliminarReserva" name="eliminar1" method="post">
+                                <%
+                                    for (int i = 0; i < reservas.size(); i++) {
+                                        System.out.println(reservas);
+                                %>   
+
+                                <tr class="textoFormulario">
+                                    <th><%= reservas.get(i).getIdReservas()%></th>
+                                    <th><%= reservas.get(i).getEmail()%></th>
+                                    <th><%= reservas.get(i).getFechaFin()%></th>
+                                    <th><%= reservas.get(i).getFechaInicio()%></th>
+                                    <th><%= reservas.get(i).getLugar()%></th>
+                                    <th><%= reservas.get(i).getMatricula()%></th>
+                                    <th><%= reservas.get(i).getCocheRecogido()%></th>
+                                    <th><%= reservas.get(i).getCocheEntregado()%></th>
+                                    <th><%= reservas.get(i).getPagoExtra()%></th>
+                                    <th><%= reservas.get(i).getRetraso()%></th>
+                                    <th><input type="radio" value="<%=reservas.get(i).getIdReservas()%>" name = "idr" id="idr"  > <%= reservas.get(i).getIdReservas()%></th>
+
+                                </tr>
+
+                                <% } %><% }%> <br> 
+                                <input type="submit" name="eliminar" id="eliminar" value="Eliminar"/>
+                            </form>
                         </table>
-                        <span class="textoFormulario">
+                </section>
+                <span class="textoFormulario">
 
-
-                    </div>
+                    
             </div>
+        </div>
 
-        </section>
-        <aside id="infoadicional">
-            <h1>Nuestras oficinas</h1>
-            <p>Vitoria</p>
-            <p>Donostia</p>
-            <p>Bilbo</p>
-            <div id="logo">
-                <img src="img/favicon.png" alt="Logo" />
-            </div>
-        </aside>
-        <div class="recuperar"></div>
-    </div>
+    </section>
+    <aside id="infoadicional">
+        <h1>Nuestras oficinas</h1>
+        <p>Vitoria</p>
+        <p>Donostia</p>
+        <p>Bilbo</p>
+        <div id="logo">
+            <img src="img/favicon.png" alt="Logo" />
+        </div>
+    </aside>
+    <div class="recuperar"></div>
+</div>
 </main>
 <footer id="pielogo">
     <div>

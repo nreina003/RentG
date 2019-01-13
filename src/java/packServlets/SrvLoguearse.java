@@ -114,7 +114,7 @@ public class SrvLoguearse extends HttpServlet {
 
         req.getSession().setAttribute("listado", listado);
         out.println("<br>");
-        out.println("Contigo, hoy me han visitado:<br>");
+      
         for (int i = 0; i < listado.size(); i++) {
             out.println("<br>" + (String) listado.elementAt(i));
         }
